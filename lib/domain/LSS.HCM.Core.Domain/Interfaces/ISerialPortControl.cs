@@ -10,6 +10,6 @@ namespace LSS.HCM.Core.Domain.Interfaces
         void CreateBuffer(string commandHeader, string hexData);
         void WriteBufferThroughSerialPort();
         void ReadDataFromSerialBuffer();
-        string WriteAndWait(string inputBuffer, int dataLength);
+        List<byte> WriteAndWait(List<byte> inputBuffer, int dataLength);
     }
 }

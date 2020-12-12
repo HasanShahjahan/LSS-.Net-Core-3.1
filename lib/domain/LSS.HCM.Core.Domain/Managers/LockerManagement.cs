@@ -7,6 +7,7 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Compartment = LSS.HCM.Core.Entities.Locker.Compartment;
 
 namespace LSS.HCM.Core.Domain.Managers
 {
@@ -23,9 +24,11 @@ namespace LSS.HCM.Core.Domain.Managers
         }
         public Locker OpenCompartment(OpenCompartmentDto openCompartmentDto)
         {
+            var lockerResult = new Locker();
             foreach (var compartmentId in openCompartmentDto.CompartmentIds)
             {
-                _compartmentManagement.DoorOpen(compartmentId);
+                Compartment targetCompartment = _compartmentManagement.DoorOpen(compartmentId);
+                lockerResult.Compartments.Add(targetCompartment);
             }
             return new Locker();
         }

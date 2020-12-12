@@ -1,6 +1,8 @@
 ﻿using LSS.HCM.Core.Common.Enums;
 using LSS.HCM.Core.DataObjects.Settings;
 using LSS.HCM.Core.Domain.Interfaces;
+using System.Collections.Generic;
+//using Compartment = LSS.HCM.Core.Entities.Locker.Compartment;
 
 namespace LSS.HCM.Core.Domain.Services
 {
@@ -19,34 +21,37 @@ namespace LSS.HCM.Core.Domain.Services
             ObjectDetectionCommunicationPort = new SerialPortControl(_appSettings);
             ScannerCommunicationPort = new SerialPortControl(_appSettings);
         }
-        public string SendCommand(string commandName, string commandData)
+        public Dictionary<string, string> SendCommand(string commandName, List<byte> commandData)
         {
-            var commandString = _lockBoardInitializationCommand.GenerateCommandBuffer(commandName, commandData.ToString());
+            List<byte> commandString = _lockBoardInitializationCommand.GenerateCommandBuffer(commandName, commandData);
             SerialPortControl controlModule;
-            string responseData = string.Empty;
-            string result, compiledData;            
+            List<byte> responseData;
+            Dictionary<string, string> result = null;
             if (commandName == CommandType.DoorOpen)
             {
                 controlModule = lockControlCommunicationPort;
-                result = controlModule.WriteAndWait(commandString, _appSettings.Microcontroller.Commands.OpenDoor.ResLen);
-                compiledData = _lockBoardInitializationCommand.CompiledCommandResponse(result);
-                responseData = _lockBoardInitializationCommand.ExecuteHexData(CommandType.DoorOpen, compiledData);
+                responseData = controlModule.WriteAndWait(commandString, _appSettings.Microcontroller.Commands.OpenDoor.ResLen);
+                result = _lockBoardInitializationCommand.ExecuteCommandResponse(CommandType.DoorOpen, responseData);
             }
             else if (commandName == CommandType.DoorStatus)
             {
-                controlModule = lockControlCommunicationPort;
-                result = controlModule.WriteAndWait(commandString, _appSettings.Microcontroller.Commands.DoorStatus.ResLen);
-                compiledData = _lockBoardInitializationCommand.CompiledCommandResponse(result);
-                responseData = _lockBoardInitializationCommand.ExecuteHexData(CommandType.DoorStatus, compiledData);
+                //controlModule = lockControlCommunicationPort;
+                //responseData = controlModule.WriteAndWait(commandString, _appSettings.Microcontroller.Commands.DoorStatus.ResLen);
+                //result = _lockBoardInitializationCommand.ExecuteCommandResponse(CommandType.DoorStatus, responseData);
             }
             else if (commandName == CommandType.ItemDetection)
             {
-                controlModule = ObjectDetectionCommunicationPort;
-                result = controlModule.WriteAndWait(commandString, _appSettings.Microcontroller.Commands.DetectItem.ResLen);
-                compiledData = _lockBoardInitializationCommand.CompiledCommandResponse(result);
-                responseData = _lockBoardInitializationCommand.ExecuteHexData(CommandType.ItemDetection, compiledData);
+                //controlModule = ObjectDetectionCommunicationPort;
+                //responseData = controlModule.WriteAndWait(commandString, _appSettings.Microcontroller.Commands.DetectItem.ResLen);
+                //result = _lockBoardInitializationCommand.ExecuteCommandResponse(CommandType.ItemDetection, responseData);
             }
-            return responseData;
+
+            Dictionary<string, string> commandResult = new Dictionary<string, string>();
+            commandResult.Add("Command", commandName);
+            commandResult.Add("DoorOpen", result.ToString());
+            commandResult.Add("DoorAvailable", result.ToString());
+
+            return commandResult;
         }
     }
 }
