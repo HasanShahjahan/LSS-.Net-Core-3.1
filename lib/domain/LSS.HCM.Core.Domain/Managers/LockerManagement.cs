@@ -24,13 +24,14 @@ namespace LSS.HCM.Core.Domain.Managers
         }
         public Locker OpenCompartment(OpenCompartmentDto openCompartmentDto)
         {
-            var lockerResult = new Locker();
+            var result = new Locker();
             foreach (var compartmentId in openCompartmentDto.CompartmentIds)
             {
                 Compartment targetCompartment = _compartmentManagement.DoorOpen(compartmentId);
-                lockerResult.Compartments.Add(targetCompartment);
+                result.Compartments.Add(targetCompartment);
             }
-            return new Locker();
+            result.TransactionId = openCompartmentDto.TransactionId;
+            return result;
         }
         public List<Entities.Locker.Compartment> CompartmentStatus()
         {

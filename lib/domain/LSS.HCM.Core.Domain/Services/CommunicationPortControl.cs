@@ -48,8 +48,8 @@ namespace LSS.HCM.Core.Domain.Services
 
             Dictionary<string, string> commandResult = new Dictionary<string, string>();
             commandResult.Add("Command", commandName);
-            commandResult.Add("DoorOpen", result.ToString());
-            commandResult.Add("DoorAvailable", result.ToString());
+            commandResult.Add("DoorOpen", result[commandName]);
+            commandResult.Add("DoorAvailable", result[commandName]);
 
             return commandResult;
         }

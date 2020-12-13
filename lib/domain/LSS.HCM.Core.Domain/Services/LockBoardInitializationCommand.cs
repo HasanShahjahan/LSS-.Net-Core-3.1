@@ -103,18 +103,18 @@ namespace LSS.HCM.Core.Domain.Services
             byte commandDataLenght = 0, commandIDcode = 0;
             if (commandName == CommandType.DoorOpen)
             {
-                commandDataLenght = Convert.ToByte(_appSettings.Microcontroller.Commands.OpenDoor.Length);
-                commandIDcode = Convert.ToByte(_appSettings.Microcontroller.Commands.OpenDoor.Code);
+                commandDataLenght = Convert.ToByte(_appSettings.Microcontroller.Commands.OpenDoor.Length, 16);
+                commandIDcode = Convert.ToByte(_appSettings.Microcontroller.Commands.OpenDoor.Code, 16);
             }
             else if (commandName == CommandType.DoorStatus)
             {
-                commandDataLenght = Convert.ToByte(_appSettings.Microcontroller.Commands.DoorStatus.Length);
-                commandIDcode = Convert.ToByte(_appSettings.Microcontroller.Commands.DoorStatus.Code);
+                commandDataLenght = Convert.ToByte(_appSettings.Microcontroller.Commands.DoorStatus.Length, 16);
+                commandIDcode = Convert.ToByte(_appSettings.Microcontroller.Commands.DoorStatus.Code, 16);
             }
             else if (commandName == CommandType.ItemDetection)
             {
-                commandDataLenght = Convert.ToByte(_appSettings.Microcontroller.Commands.DetectItem.Length);
-                commandIDcode = Convert.ToByte(_appSettings.Microcontroller.Commands.DetectItem.Code);
+                commandDataLenght = Convert.ToByte(_appSettings.Microcontroller.Commands.DetectItem.Length, 16);
+                commandIDcode = Convert.ToByte(_appSettings.Microcontroller.Commands.DetectItem.Code, 16);
             }
 
             // Write value to command byte List
@@ -128,7 +128,7 @@ namespace LSS.HCM.Core.Domain.Services
             List<byte> commandChecksum = GenerateCRC16CheckSum(commandByte);
             commandByte.AddRange(commandChecksum);
 
-            return commandHeader;
+            return commandByte;
 
         }
         private List<byte> SplitStringToByte(string strInput)

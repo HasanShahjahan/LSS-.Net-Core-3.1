@@ -32,6 +32,7 @@ namespace LSS.HCM.Core.Api.Controllers
             var (statusCode, errorResult) = _lockerManagementValidator.PayloadValidator(Request.Headers[HeaderNames.Authorization], PayloadTypes.OpenCompartment, lockerId, request.TransactionId, request.CompartmentIds, string.Empty);
             //_logger.LogInformation("[Open Compartment]" + "[" + request.TransactionId + "]" + " Locker Id: " + lockerId + " Status Code: " + statusCode + " Error Result : " + errorResult.Data.ValidFormat + " Access Token : " + Request.Headers[HeaderNames.Authorization]);
             if (statusCode != StatusCodes.Status200OK) return StatusCode(statusCode, errorResult);
+            
             var result = _lockerManagement.OpenCompartment(request);
             _logger.LogInformation("[Open Compartment]" + "[" + request.TransactionId + "]" + " Locker Id: " + lockerId + "[Response]" + JsonConvert.SerializeObject(result));
             return StatusCode(StatusCodes.Status200OK, result);

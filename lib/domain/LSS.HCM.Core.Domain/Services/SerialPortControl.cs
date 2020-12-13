@@ -13,7 +13,7 @@ namespace LSS.HCM.Core.Domain.Services
         public SerialPortControl(AppSettings appSettings) 
         {
             _appSettings = appSettings;
-            _serialPort.PortName = _appSettings.Microcontroller.LockControl.Name;
+            _serialPort.PortName = _appSettings.Microcontroller.LockControl.Port;
             _serialPort.BaudRate = _appSettings.Microcontroller.LockControl.Baudrate;
             _serialPort.Parity = Parity.None;
             _serialPort.DataBits = _appSettings.Microcontroller.LockControl.DataBits;
@@ -42,6 +42,7 @@ namespace LSS.HCM.Core.Domain.Services
 
         public List<byte> WriteAndWait(List<byte> inputBuffer, int dataLength)
         {
+            _serialPort.Open();
             List<byte> commandResponseByte = new List<byte>();
             _serialPort.Write(inputBuffer.ToArray(), 0, inputBuffer.Count);
             bool _continue = true;
@@ -70,7 +71,7 @@ namespace LSS.HCM.Core.Domain.Services
                 }
                 catch (TimeoutException) { }
             }
-
+            _serialPort.Close();
             return commandResponseByte;
         }
     }
