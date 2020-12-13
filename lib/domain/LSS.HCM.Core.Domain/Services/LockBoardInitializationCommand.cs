@@ -47,50 +47,26 @@ namespace LSS.HCM.Core.Domain.Services
                     string statusArray9_16 = Convert.ToString(Data.ElementAt(3), 2).PadLeft(8, '0');
                     string statusArray17_24 = Convert.ToString(Data.ElementAt(4), 2).PadLeft(8, '0');
 
-                    List<char> statusAry = (statusArray1_8 + statusArray9_16 + statusArray17_24).ToList();
+                    //List<char> statusAry = (statusArray1_8 + statusArray9_16 + statusArray17_24).ToList();
+                    string statusAry = statusArray1_8 + statusArray9_16 + statusArray17_24;
 
-                    compiledData.Add("statusAry", statusAry.ToString());
+                    compiledData.Add("statusAry", statusAry);
                     break;
                 case CommandType.ItemDetection:
                     //executeDoorOpen(Data);
+                    string detectionArray1_8 = Convert.ToString(Data.ElementAt(3), 2).PadLeft(8, '0');
+                    string detectionArray9_16 = Convert.ToString(Data.ElementAt(4), 2).PadLeft(8, '0');
+                    string detectionArray17_24 = Convert.ToString(Data.ElementAt(5), 2).PadLeft(8, '0');
+                    string detectionArray25_32 = Convert.ToString(Data.ElementAt(6), 2).PadLeft(8, '0');
+
+                    string detectionAry = detectionArray1_8 + detectionArray9_16 + detectionArray17_24 + detectionArray25_32;
+
+                    compiledData.Add("detectionAry", detectionAry);
                     break;
 
             }
 
             return compiledData;
-
-
-
-
-            /*
-             
-              var commandName = inputdata['command'];
-              var hexDataBuffer = inputdata['data'];
-              var ret = { "command": commandName, "data": {} };
-              if(commandName == "doorstatus") {
-              }
-              else if(commandName == "opendoor") {
-              }
-              else if(commandName == "detectitem") {
-                var detectionArray1_8Hex = hexDataBuffer.slice(3, 4).toString("hex").toUpperCase();
-                var detectionArray9_16Hex = hexDataBuffer.slice(4, 5).toString("hex").toUpperCase();
-                var detectionArray17_24Hex = hexDataBuffer.slice(5, 6).toString("hex").toUpperCase();
-                var detectionArray25_32Hex = hexDataBuffer.slice(6, 7).toString("hex").toUpperCase();
-                var detectionArray1_8 = (parseInt(detectionArray1_8Hex, 16)).toString(2).padStart(8, '0').split('');
-                var detectionArray9_16 = (parseInt(detectionArray9_16Hex, 16)).toString(2).padStart(8, '0').split('');
-                var detectionArray17_24 = (parseInt(detectionArray17_24Hex, 16)).toString(2).padStart(8, '0').split('');
-                var detectionArray25_32 = (parseInt(detectionArray25_32Hex, 16)).toString(2).padStart(8, '0').split('');
-                var detectionAry = detectionArray1_8.concat(detectionArray9_16.concat(detectionArray17_24.concat(detectionArray25_32)));
-
-                ret['data'] = {
-                  detection: detectionAry
-                };
-
-              }
-              else {
-                logger.operationERRlog('Serial Hex Data Extraction', '[Unknown Command Response][' + hexDataBuffer + ']');
-              }
-             */
         }
 
         public List<byte> GenerateCommandBuffer(string commandName, List<byte> commandData)
@@ -129,7 +105,6 @@ namespace LSS.HCM.Core.Domain.Services
             commandByte.AddRange(commandChecksum);
 
             return commandByte;
-
         }
         private List<byte> SplitStringToByte(string strInput)
         {

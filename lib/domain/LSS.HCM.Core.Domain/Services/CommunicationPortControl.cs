@@ -35,22 +35,18 @@ namespace LSS.HCM.Core.Domain.Services
             }
             else if (commandName == CommandType.DoorStatus)
             {
-                //controlModule = lockControlCommunicationPort;
-                //responseData = controlModule.WriteAndWait(commandString, _appSettings.Microcontroller.Commands.DoorStatus.ResLen);
-                //result = _lockBoardInitializationCommand.ExecuteCommandResponse(CommandType.DoorStatus, responseData);
+                controlModule = lockControlCommunicationPort;
+                responseData = controlModule.WriteAndWait(commandString, _appSettings.Microcontroller.Commands.DoorStatus.ResLen);
+                result = _lockBoardInitializationCommand.ExecuteCommandResponse(CommandType.DoorStatus, responseData);
             }
             else if (commandName == CommandType.ItemDetection)
             {
-                //controlModule = ObjectDetectionCommunicationPort;
-                //responseData = controlModule.WriteAndWait(commandString, _appSettings.Microcontroller.Commands.DetectItem.ResLen);
-                //result = _lockBoardInitializationCommand.ExecuteCommandResponse(CommandType.ItemDetection, responseData);
+                controlModule = ObjectDetectionCommunicationPort;
+                responseData = controlModule.WriteAndWait(commandString, _appSettings.Microcontroller.Commands.DetectItem.ResLen);
+                result = _lockBoardInitializationCommand.ExecuteCommandResponse(CommandType.ItemDetection, responseData);
             }
-
-            Dictionary<string, string> commandResult = new Dictionary<string, string>();
+            Dictionary<string, string> commandResult = result;
             commandResult.Add("Command", commandName);
-            commandResult.Add("DoorOpen", result[commandName]);
-            commandResult.Add("DoorAvailable", result[commandName]);
-
             return commandResult;
         }
     }
