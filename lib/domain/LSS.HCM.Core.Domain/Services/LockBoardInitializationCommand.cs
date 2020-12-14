@@ -43,12 +43,19 @@ namespace LSS.HCM.Core.Domain.Services
                     break;
                 case CommandType.DoorStatus:
                     //executeDoorOpen(Data);
-                    string statusArray1_8 = Convert.ToString(Data.ElementAt(2), 2).PadLeft(8, '0');
-                    string statusArray9_16 = Convert.ToString(Data.ElementAt(3), 2).PadLeft(8, '0');
-                    string statusArray17_24 = Convert.ToString(Data.ElementAt(4), 2).PadLeft(8, '0');
+                    char[] statusArray1_8 = Convert.ToString(Data.ElementAt(2), 2).PadLeft(8, '0').ToCharArray();
+                    char[] statusArray9_16 = Convert.ToString(Data.ElementAt(3), 2).PadLeft(8, '0').ToCharArray();
+                    char[] statusArray17_24 = Convert.ToString(Data.ElementAt(4), 2).PadLeft(8, '0').ToCharArray();
+                    Array.Reverse(statusArray1_8);
+                    Array.Reverse(statusArray9_16);
+                    Array.Reverse(statusArray17_24);
+
+                    string statusStr1_8 = new string(statusArray1_8);
+                    string statusStr9_16 = new string(statusArray9_16);
+                    string statusStr17_24 = new string(statusArray17_24);
 
                     //List<char> statusAry = (statusArray1_8 + statusArray9_16 + statusArray17_24).ToList();
-                    string statusAry = statusArray1_8 + statusArray9_16 + statusArray17_24;
+                    string statusAry = statusStr1_8 + statusStr9_16 + statusStr17_24;
 
                     compiledData.Add("statusAry", statusAry);
                     break;

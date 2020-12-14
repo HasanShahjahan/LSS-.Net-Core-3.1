@@ -97,7 +97,7 @@ namespace LSS.HCM.Core.Domain.Managers
                                                                  compatment.CompartmentSize,
                                                                  opendoorStatus[compatment.CompartmentCode.Lcbid] == 0 ? true : false,
                                                                  opendoorStatus[compatment.CompartmentCode.Lcbid] == 0 ? false : true,
-                                                                 objectdetectStatus[compatment.CompartmentCode.Odbid] == 0 ? false : true,
+                                                                 objectdetectStatus[compatment.CompartmentCode.Odbid] == 0 ? true : false,
                                                                  opendoorStatus[compatment.CompartmentCode.Lcbid] == 0 ? "ON" : "OFF");
                 compartmentList.Add(compartmentResult);
             }

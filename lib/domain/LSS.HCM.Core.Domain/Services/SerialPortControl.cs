@@ -9,14 +9,14 @@ namespace LSS.HCM.Core.Domain.Services
     public class SerialPortControl : ISerialPortControl
     {
         private readonly SerialPort _serialPort = new SerialPort();
-        private readonly AppSettings _appSettings;
-        public SerialPortControl(AppSettings appSettings) 
+        private readonly SerialInterface _serialportSetting;
+        public SerialPortControl(SerialInterface serialportSetting) 
         {
-            _appSettings = appSettings;
-            _serialPort.PortName = _appSettings.Microcontroller.LockControl.Port;
-            _serialPort.BaudRate = _appSettings.Microcontroller.LockControl.Baudrate;
+            _serialportSetting = serialportSetting;
+            _serialPort.PortName = _serialportSetting.Port;
+            _serialPort.BaudRate = _serialportSetting.Baudrate;
             _serialPort.Parity = Parity.None;
-            _serialPort.DataBits = _appSettings.Microcontroller.LockControl.DataBits;
+            _serialPort.DataBits = _serialportSetting.DataBits;
             //_serialPort.StopBits = 0;
             _serialPort.Handshake = Handshake.None;
             _serialPort.ReadTimeout = 500;

@@ -17,9 +17,9 @@ namespace LSS.HCM.Core.Domain.Services
         {
             _lockBoardInitializationCommand = lockBoardInitializationCommand;
             _appSettings = appSettings;
-            lockControlCommunicationPort = new SerialPortControl(_appSettings);
-            ObjectDetectionCommunicationPort = new SerialPortControl(_appSettings);
-            ScannerCommunicationPort = new SerialPortControl(_appSettings);
+            lockControlCommunicationPort = new SerialPortControl(_appSettings.Microcontroller.LockControl);
+            ObjectDetectionCommunicationPort = new SerialPortControl(_appSettings.Microcontroller.ObjectDetection);
+            ScannerCommunicationPort = new SerialPortControl(_appSettings.Microcontroller.Scanner);
         }
         public Dictionary<string, string> SendCommand(string commandName, List<byte> commandData)
         {

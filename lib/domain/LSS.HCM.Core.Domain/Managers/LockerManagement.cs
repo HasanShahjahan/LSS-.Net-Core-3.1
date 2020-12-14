@@ -27,7 +27,7 @@ namespace LSS.HCM.Core.Domain.Managers
             _communicationPortControl = communicationPortControl;
         }
         public Locker OpenCompartment(OpenCompartmentDto openCompartmentDto)
-        {/*
+        {
             var lockerConfiguration = _repository.Get().Find(configuration => configuration.Id == _appSettings.LockerStationId).FirstOrDefault();
             // Find  object detection module id list by input list of compartment
             var odbModuleList = new List<string> { };
@@ -49,7 +49,7 @@ namespace LSS.HCM.Core.Domain.Managers
             {
                 objectdetectStatusAry[moduleNo] = _compartmentManagement.GetOjecdetectionByModuleID(moduleNo);
             }
-            */
+            
             // Open door and update status each compartment
             var result = new Locker();
             foreach (var compartmentId in openCompartmentDto.CompartmentIds)
@@ -57,9 +57,9 @@ namespace LSS.HCM.Core.Domain.Managers
                 Compartment targetCompartment = _compartmentManagement.DoorOpen(compartmentId);
 
                 // Update objectdetection status
-                //CompartmentConfig targetCompartmentConfig = _compartmentManagement.GetCompartmentConfig(compartmentId);
-                //Dictionary<string, byte> objectdetectStatus = objectdetectStatusAry[targetCompartmentConfig.CompartmentCode.Odbmod];
-                //targetCompartment.ObjectDetected = objectdetectStatus[targetCompartmentConfig.CompartmentCode.Odbid] == 0? true: false;
+                CompartmentConfig targetCompartmentConfig = _compartmentManagement.GetCompartmentConfig(compartmentId);
+                Dictionary<string, byte> objectdetectStatus = objectdetectStatusAry[targetCompartmentConfig.CompartmentCode.Odbmod];
+                targetCompartment.ObjectDetected = objectdetectStatus[targetCompartmentConfig.CompartmentCode.Odbid] == 0? true: false;
 
                 result.Compartments.Add(targetCompartment);
             }
