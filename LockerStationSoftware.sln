@@ -11,6 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{18A6A4BE-4BA
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BDF8EEB6-7CAD-4AB5-BA12-0CB8DF3B18BE}"
+	ProjectSection(SolutionItems) = preProject
+		jwt_development.txt = jwt_development.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "application", "application", "{E17ABA93-095F-4D69-8F11-5DC5EBB8D938}"
 EndProject
@@ -50,7 +53,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LSS.FE.App", "lib\presentat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LSS.IntegrationTest", "test\integration\LSS.IntegrationTest\LSS.IntegrationTest.csproj", "{B97B315F-3EBD-4ED1-AF41-DB3D9BB58FB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LSS.HCM.UnitTest.DependencyResolver", "test\unit\LSS.HCM.UnitTest.DependencyResolver\LSS.HCM.UnitTest.DependencyResolver.csproj", "{BEB491A8-728B-479D-BA49-76DE65ECA699}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LSS.HCM.UnitTest.DependencyResolver", "test\unit\LSS.HCM.UnitTest.DependencyResolver\LSS.HCM.UnitTest.DependencyResolver.csproj", "{BEB491A8-728B-479D-BA49-76DE65ECA699}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -4,6 +4,16 @@ namespace LSS.HCM.Core.Entities.Locker
 {
     public class Compartment
     {
+        public Compartment()
+        {
+            LockerId = string.Empty;
+            CompartmentId = string.Empty;
+            CompartmentDoorOpen = false;
+            CompartmentSize = string.Empty;
+            CompartmentDoorAvailable = false;
+            ObjectDetected = false;
+            StatusLed = string.Empty;
+        }
         public Compartment(string lockerId, string compartmentId, string compartmentSize, bool compartmentDoorOpen, bool compartmentDoorAvailable, bool objectDetected, string statusLed)
         {
             LockerId = lockerId;
