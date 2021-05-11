@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LSS.HCM.Core.Domain.Interfaces
 {
     public interface ILockBoardInitializationCommand
     {
-        string ExecuteHexData(string commandType, string inputData);
-        string CompiledCommandResponse(string bufferResponse);
-        string GenerateCommandBuffer(string commandName, string commandData);
+        Dictionary<string, string> ExecuteCommandResponse(string commandType, List<byte> bufferResponse);
+        List<byte> GenerateCommandBuffer(string commandName, List<byte> commandData);
     }
 }
